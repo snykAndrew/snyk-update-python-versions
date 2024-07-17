@@ -11,31 +11,27 @@ Restore is not currently implemented
 - Chrome
 
 ## Installation instructions:
-
 Clone this repo and run <pre><code>pip3 install -r requirements.txt</pre></code><br>
 
 ## How do I use this script?<br>
+Edit the Python version at the top of the script.
+
 #### By defaul the script will generate CSV reports for direct dependencies.
 ```shell
-python3 ./snyk-create-dep-report.py
+python3 ./snyk-update-python-version.py
 ```
 #### Script Options:
-If you want generate a report for transitive dependencies then change the isTransitive string value to "true":<br>
-By default this is set to "false".
-```python
-isTransitive = "true"
-```
-If you want to filter on isDeprecated then set the useDeprecatedFilter to True:<br>
-By default this is set to False.
-```python
- useDeprecatedFilter = True
-```
-After that set the isDeprecated string value to either "true" or "false".<br>
-By default it is set to "false".
-```python
-useDeprecatedFilter = True
-isDeprecated = "true"
-```
+--help
+    will print these help options
+
+--DANGER-UPDATE-ALL
+    - default behaviour is to ignore an org with a higher python version than you are setting this to.  This option will FORCE all orgs to the version you set it to.  This is dangerous.  Use at your own risk.
+
+--save
+    - will save a backup of orgs for SNYK_GROUP in save_points/<date>.csv
+
+--restore
+    - not yet implemented
 
 ### *** This script will open a Chrome window and direct you to login Snyk ***
 
