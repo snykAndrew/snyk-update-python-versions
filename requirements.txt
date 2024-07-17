@@ -1,0 +1,5 @@
+pysnyk
+selenium
+webdriver_manager
+numpy
+tqdm
