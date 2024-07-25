@@ -17,9 +17,10 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from packaging.version import Version
 
-minPythonVersion = f"{3.9:.1f}" #change to .1f for 3.7, 3.8, 3.9 - .2f for 3.10, 3.12, etc
+minPythonVersion = f"{3.8:.1f}" #change to .1f for 3.7, 3.8, 3.9 - .2f for 3.10, 3.12, etc
 runAllOrgs = "no" #this will run through all orgs without asking for manual intervention, CAREFUL - recommended to only do this on STDIN during runtime
 OVERRIDE_ALL= False #this will set the version even if it is higher, CAREFUL - don't change it here, override it on CLI options
+IGNORE_SAVE= False #This will skip saving, CAREFUL - don't change it here, override it on CLI options
 
 class MyHTMLParser(HTMLParser):
     def handle_starttag(self, tag, attrs):
@@ -115,6 +116,7 @@ def get_python_version(driver, org_slug):
     global minPythonVersion
     pythonVersion = minPythonVersion
     try:
+        #print(f"getting {org_slug} version")
         response = requests.get(url, headers=headers, cookies=snyk_cookies)
         response.raise_for_status()
         #print(f"RESPONSE: {response}")
@@ -136,6 +138,8 @@ def get_python_version(driver, org_slug):
     except Exception as e:
         print(f'ERROR: {e}')
         raise
+
+    response.close()
 
     return pythonVersion
 
@@ -221,9 +225,15 @@ def set_python_version(driver, orgSlug, python_version, csrf_token):
         print(f'ERROR: {e}')
         raise
 
+    response.close()
+
     return data
 
 def create_save_point(driver, orgs):
+    if IGNORE_SAVE:
+        print("DANGER_IGNORE_SAVE set - skipping save")
+        return
+    
     #print(f"SAVE POINT ORGS: {orgs}")
     os.makedirs('save_points', exist_ok=True)
     timestr = time.strftime("%Y%m%d-%H%M%S")
@@ -296,6 +306,7 @@ def main():
     parser = argparse.ArgumentParser("update python versions")
     parser.add_argument("--DANGER-UPDATE-ALL", help="This will OVERRIDE existing Python versions, be careful",action='store_true', default=False)
     parser.add_argument("--save", help="This will save all python versions currently in SNYK_GROUP",action='store_true', default=False)
+    parser.add_argument("--DANGER-IGNORE-SAVE", help="This will SKIP save point!",action='store_true', default=False)
     parser.add_argument("--restore", help="This will restore an old version, it will create another backup first",action='store')
     args = parser.parse_args()
 
@@ -304,8 +315,17 @@ def main():
         OVERRIDE_ALL=True
         print("OVERRIDE ALL SET")
 
+    if args.DANGER_IGNORE_SAVE:
+        global IGNORE_SAVE
+        IGNORE_SAVE=True
+        print("IGNORE_SAVE SET")
+
     # Set up Selenium
+    #chrome_options = Options()
+    #chrome_options.add_argument('--dns-prefetch-disable')
+    #driverPath = ChromeDriverManager(chrome_options=chrome_options).install()
     driverPath = ChromeDriverManager().install()
+
     service = Service(executable_path=driverPath)
     driver = webdriver.Chrome(service=service)
 

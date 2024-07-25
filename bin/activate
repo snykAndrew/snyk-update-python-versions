@@ -39,10 +39,10 @@ deactivate nondestructive
 if [ "${OSTYPE:-}" = "cygwin" ] || [ "${OSTYPE:-}" = "msys" ] ; then
     # transform D:\path\to\venv to /d/path/to/venv on MSYS
     # and to /cygdrive/d/path/to/venv on Cygwin
-    export VIRTUAL_ENV=$(cygpath "/Users/mathes/repos/snykScripts/snyk-create-dep-report")
+    export VIRTUAL_ENV=$(cygpath "/Users/mathes/repos/snykScripts/snyk-update-python-version")
 else
     # use the path as-is
-    export VIRTUAL_ENV="/Users/mathes/repos/snykScripts/snyk-create-dep-report"
+    export VIRTUAL_ENV="/Users/mathes/repos/snykScripts/snyk-update-python-version"
 fi
 
 _OLD_VIRTUAL_PATH="$PATH"
@@ -59,9 +59,9 @@ fi
 
 if [ -z "${VIRTUAL_ENV_DISABLE_PROMPT:-}" ] ; then
     _OLD_VIRTUAL_PS1="${PS1:-}"
-    PS1="(snyk-create-dep-report) ${PS1:-}"
+    PS1="(snyk-update-python-version) ${PS1:-}"
     export PS1
-    VIRTUAL_ENV_PROMPT="(snyk-create-dep-report) "
+    VIRTUAL_ENV_PROMPT="(snyk-update-python-version) "
     export VIRTUAL_ENV_PROMPT
 fi
 

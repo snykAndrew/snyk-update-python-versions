@@ -9,7 +9,7 @@ alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PA
 # Unset irrelevant variables.
 deactivate nondestructive
 
-setenv VIRTUAL_ENV "/Users/mathes/repos/snykScripts/snyk-create-dep-report"
+setenv VIRTUAL_ENV "/Users/mathes/repos/snykScripts/snyk-update-python-version"
 
 set _OLD_VIRTUAL_PATH="$PATH"
 setenv PATH "$VIRTUAL_ENV/bin:$PATH"
@@ -18,8 +18,8 @@ setenv PATH "$VIRTUAL_ENV/bin:$PATH"
 set _OLD_VIRTUAL_PROMPT="$prompt"
 
 if (! "$?VIRTUAL_ENV_DISABLE_PROMPT") then
-    set prompt = "(snyk-create-dep-report) $prompt"
-    setenv VIRTUAL_ENV_PROMPT "(snyk-create-dep-report) "
+    set prompt = "(snyk-update-python-version) $prompt"
+    setenv VIRTUAL_ENV_PROMPT "(snyk-update-python-version) "
 endif
 
 alias pydoc python -m pydoc
