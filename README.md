@@ -16,7 +16,6 @@ Clone this repo and run <pre><code>pip3 install -r requirements.txt</pre></code>
 ## How do I use this script?<br>
 Edit the Python version at the top of the script.
 
-#### By defaul the script will generate CSV reports for direct dependencies.
 ```shell
 python3 ./snyk-update-python-version.py
 ```
