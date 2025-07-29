@@ -14,7 +14,7 @@ Restore is not currently implemented
 Clone this repo and run <pre><code>pip3 install -r requirements.txt</pre></code><br>
 
 ## How do I use this script?<br>
-Edit the Python version at the top of the script.
+Edit the Python version at the top of the script.  This will set all orgs to this version at MINIMUM.  If it is already higher, it will leave it higher.
 
 ```shell
 python3 ./snyk-update-python-version.py
